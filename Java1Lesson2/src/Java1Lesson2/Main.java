@@ -15,8 +15,9 @@ public class Main {
         byte[] array6 = {126,2,2,1,1,127,1,127,2,2,2,125};
         arr6(array6);
 
-        byte[] array7 = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
-        byte n = 3;
+        byte[] array7 = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
+        byte n = 5;
+        arr7_1(array7,n);
         arr7_2(array7,n);
         arr7_3(array7,n);
     }
@@ -106,8 +107,50 @@ public class Main {
 
     //7. Написать метод, которому на вход подаётся одномерный массив и число n
 
-    //смещает на n (и ходит по круту, потому что круглая Земля)
-    //алгоритмически простым методом - на одну позицию за итерацию
+    //смещает на n (и ходит по кругу, потому что круглая Земля)
+    //на базисе наибольших общий делителей
+    //сложностью между O(arr.length) и O(arr.length*n)
+    //в неуемном стремлении к оптимизации всего и вся
+    private static boolean arr7_1(byte arr[], byte n){
+
+        byte mod = 0; //считаем общее смещение массива вправо
+        n = (byte)(n % arr.length);
+        if (n > 0) mod = n;
+        if (n < 0) mod = (byte)(arr.length+n);
+        if (mod == 0) return true; // смещений не требуется, Добби свободен
+
+        while (mod!=0) {
+            byte move = gcd(arr.length, mod); // наибольший общий делитель, на который сдвигаем массив за итерацию
+
+            // проходим последовательным смещениями move длины весь массив move раз
+            for (byte i = 1; i <= move; i++) {
+                byte tmp = arr[arr.length - i]; // храним значение затираемого элемента массива
+                byte j;
+                for (j = (byte) (arr.length - i); j >= move; j -= move) {
+                    arr[j] = arr[j - move];
+                }
+                arr[j] = tmp; // и возвращаем его начальному элементу
+            }
+            mod -=move; // вычисляем оставшееся смещение
+        }
+
+        System.out.println("\nArray 7_1: " + Arrays.toString(arr));
+
+        return true;
+    }
+
+    //алгоритм поиска наибольшего общего делителя (НОД) для метода arr7_1
+    private static byte gcd(int a, int b) {
+        while (b !=0) {
+            int tmp = a%b;
+            a = b;
+            b = tmp;
+        }
+        return (byte)a;
+    }
+
+    //смещает на n (и ходит по кругу, потому что круглая Земля)
+    //на одну позицию за итерацию O(arr.length*n)
     private static boolean arr7_2(byte arr[], byte n){
         byte mod = 0; //считаем смещение массива вправо
         n = (byte)(n % arr.length);
