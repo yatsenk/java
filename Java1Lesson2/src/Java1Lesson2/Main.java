@@ -83,6 +83,9 @@ public class Main {
         }
         System.out.println("\nArray 5: Max = " + max + " Min = " + min);
 
+        Arrays.sort(arr);
+        System.out.println("Array 5, Sorted Min = " + arr[0] + " , Sorted Max = " + arr[arr.length-1]);
+
     }
 
     //6. Написать метод, в который передается не пустой
