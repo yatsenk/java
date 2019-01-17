@@ -35,11 +35,7 @@ public class Main {
 
         //цикл игры
         do {
-            if (attempts > 1) {
-                System.out.println("У вас осталось " + attempts + " попытки.");
-            } else {
-                System.out.println("У вас осталось " + attempts + " попытка.");
-            }
+            System.out.println("У вас осталось " + attempts + ((attempts > 1)?" попытки.":" попытка."));
 
             attempts--;
 
@@ -80,7 +76,9 @@ public class Main {
     // 2. Создать​​ массив​ ​из ​​слов
     // При запуске программы компьютер загадывает слово
     private static boolean wordGame(){
-        String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper", "pumpkin", "pineapple", "potato"};
+        String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli",
+                "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom",
+                "nut", "olive", "pea", "peanut", "pear", "pepper", "pumpkin", "pineapple", "potato"};
         String word = words[(int) (Math.random()*(words.length))]; //загаданное слово
 
         System.out.println();
