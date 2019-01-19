@@ -12,8 +12,9 @@ public class Main {
         arr4();
         arr5();
 
-        byte[] array6 = {126,2,2,1,1,127,1,127,2,2,2,125};
+        byte[] array6 = {100,30,-100,100,100,10,10,10};
         arr6(array6);
+        arr6_1(array6);
 
         byte[] array7 = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
         byte n = 5;
@@ -21,6 +22,8 @@ public class Main {
         arr7_2(array7,n);
         arr7_3(array7,n);
     }
+
+
 
     //1. Задать целочисленный массив, состоящий из элементов 0 и 1.
     private static void arr1(){
@@ -90,6 +93,8 @@ public class Main {
     }
 
     //6. Написать метод, в который передается не пустой
+
+    //работает не со всеми массивами
     private static boolean arr6(byte arr[]){
         int left = 0;
         int right = arr.length - 1;
@@ -107,6 +112,27 @@ public class Main {
         }
         System.out.println("\nArray 6: " + (sumleft == sumright));
         return sumleft == sumright;
+    }
+
+    //быстрая и точная версия
+    private static boolean arr6_1(byte[] arr){
+        int sum=0,left=0;
+
+        //считаем полную сумму массива
+        for (int i:arr) {
+            sum+=i;
+        }
+
+        for (int i:arr){
+            left+=i;
+            if (left == sum - left){
+                System.out.println("Array6_1 - Bingo!");
+                return true;
+            }
+        }
+        return false;
+
+
     }
 
     //7. Написать метод, которому на вход подаётся одномерный массив и число n
