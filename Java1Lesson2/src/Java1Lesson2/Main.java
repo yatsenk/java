@@ -118,14 +118,26 @@ public class Main {
     private static boolean arr6_1(byte[] arr){
         int sum=0,left=0;
 
+        //половина массива - условно правая
+        int half_sum;
+
         //считаем полную сумму массива
         for (int i:arr) {
             sum+=i;
         }
 
+        //проверяем четность считаем половину массива
+        if (sum%2!=0){
+            System.out.println("Массив нечетный.");
+            return false;
+        } else {
+            half_sum = sum/2;
+        }
+
+        //считаем массив слева, если найдем точку половины - условие выполнено
         for (int i:arr){
             left+=i;
-            if (left == sum - left){
+            if (left == half_sum){
                 System.out.println("Array6_1 - Bingo!");
                 return true;
             }
