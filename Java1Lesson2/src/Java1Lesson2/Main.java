@@ -64,6 +64,7 @@ public class Main {
         byte[][] arr = new byte[length][length];
         for (byte i = 0; i<length;i++){
             arr[i][i] = 1;
+            arr[i][arr.length - 1 - i] = 1;
         }
         System.out.println("\nArray 4:");
         for (byte i = 0; i<length;i++){
