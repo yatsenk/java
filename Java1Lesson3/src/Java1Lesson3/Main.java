@@ -32,6 +32,7 @@ public class Main {
         int number = (int) (Math.random() * (intInput() + 1)); // это число угадываем
         int attempts = 3; //количество попыток
         int attempt; //текущая попытка
+        boolean win = false;
 
         //цикл игры
         do {
@@ -49,11 +50,11 @@ public class Main {
             } else {
                 System.out.println("Вы угадали!");
                 wins++;
-                break;
+                win = true;
             }
-        } while (attempts !=0);
+        } while (attempts !=0 && !win);
 
-        if (attempts == 0){
+        if (!win){
             System.out.println("Вы проиграли.");
         }
 
