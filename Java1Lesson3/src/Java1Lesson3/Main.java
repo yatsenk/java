@@ -32,7 +32,7 @@ public class Main {
         int number = (int) (Math.random() * (intInput() + 1)); // это число угадываем
         int attempts = 3; //количество попыток
         int attempt; //текущая попытка
-        boolean win = false;
+        boolean win = false; //флаг выигрыша
 
         //цикл игры
         do {
@@ -48,13 +48,14 @@ public class Main {
             } else if (attempt < number) {
                 System.out.println("Загаданное число больше");
             } else {
-                System.out.println("Вы угадали!");
                 wins++;
                 win = true;
             }
         } while (attempts !=0 && !win);
 
-        if (!win){
+        if (win){
+            System.out.println("Вы угадали!");
+        } else {
             System.out.println("Вы проиграли.");
         }
 
