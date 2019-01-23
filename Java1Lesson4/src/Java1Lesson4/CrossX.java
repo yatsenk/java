@@ -11,12 +11,11 @@
 все эти ошибки копирования, как рекламировалось.
 */
 
-
 package Java1Lesson4;
 
 import java.util.Scanner;
 
-public class CrossX {
+class CrossX {
 
     //размер и переменная поля
     //оставляем 3х3, потому что под общий случай писать получается долго
@@ -25,12 +24,12 @@ public class CrossX {
     private static char[][] map;
 
     //значения полей
-    private static char player = 'X';
-    private static char computer = 'O';
-    private static char empty = '•';
+    private static final char player = 'X';
+    private static final char computer = 'O';
+    private static final char empty = '•';
 
     //сканер хода игрока
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
 
     public static void main(String[] args) {
@@ -308,11 +307,8 @@ public class CrossX {
                 }
             }
         }
-
-
         return found;
-
-
     }
+
 }
 
