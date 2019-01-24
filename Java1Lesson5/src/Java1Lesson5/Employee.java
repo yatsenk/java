@@ -6,7 +6,7 @@ public class Employee {
     private String email;
     private int tel;
     private int salary;
-    private int age;
+    private byte age;
 
 
     //Сотрудник по умолчанию, вот пусть ему все пишут и звонят
@@ -26,11 +26,11 @@ public class Employee {
         this.email = email;
         this.tel = tel;
         this.salary = salary;
-        this.age = age;
+        this.age = (byte)age;
         if (age < 18) {
             System.out.println(name + " слишком юн для нас, примем его на работу через " + (18-age) + " лет.");
             System.out.println();
-        };
+        }
     }
 
 
@@ -45,10 +45,10 @@ public class Employee {
             System.out.println("У вас что, " + name + " помолодел?");
             System.out.println();
         }
-        this.age = age;
+        this.age = (byte) age;
     }
 
-    public int getAge(){
+    public byte getAge(){
         return age;
     }
 
