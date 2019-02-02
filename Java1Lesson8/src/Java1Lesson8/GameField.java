@@ -37,30 +37,25 @@ public class GameField extends JFrame{
                     ux=b_i/3;
                     uy=b_i%3;
                     jb[b_i].setText("X");
-                    jb[b_i].removeActionListener(this); //и вот тут тоже гугл на полчаса, хотя это тоже очевидно
+                    jb[b_i].removeActionListener(this); //и вот тут тоже гугл на полчаса, хотя это же очевидно
                     playARound(cx);
                     }
             });
         }
     }
 
-    public void win(String s){
+    private void win(String s){
         JFrame w = new JFrame();
         w.setBounds(100,200,300,100);
         w.setLayout(new GridLayout(1,1));
         JButton close = new JButton(s + " выиграл!");
         w.add(close);
         w.setVisible(true);
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        close.addActionListener(e -> System.exit(0)); // в 10-30 утра я все еще не знаю, что такое лямюда, но обязательно узнаю!
 
     }
 
-    public boolean playARound(CrossX cx){ // 9 утра, спагетти в силе, зачем я в этот класс все пишу?
+    private boolean playARound(CrossX cx){ // 9 утра, спагетти в силе, зачем я в этот класс все пишу?
         cx.player(ux,uy);
         if (cx.checkWin(cx.player)) {win("Игрок");}
         if (cx.isMapFull()) {win("Никто не"); return false;}
@@ -70,7 +65,7 @@ public class GameField extends JFrame{
         return false;
     }
 
-    public void o_button(int xy){ //ход компа
+    private void o_button(int xy){ //ход компа
         jb[xy].setText("O");
         for (ActionListener listener : jb[xy].getActionListeners()) { // последствия гугла выше на полчаса (с)
             jb[xy].removeActionListener(listener);
