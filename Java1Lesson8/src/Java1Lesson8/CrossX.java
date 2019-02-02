@@ -17,7 +17,7 @@ class CrossX {
     //значения полей
     final char player = 'X';
     final char computer = 'O';
-    final char empty = '•';
+    private final char empty = '•';
 
 
     public CrossX(){
@@ -37,7 +37,7 @@ class CrossX {
 
 
     //проверка возможности хода NxN
-    boolean isCellValid(int x, int y) {
+    private boolean isCellValid(int x, int y) {
         return  x >= 0 &&
                 y >= 0 &&
                 x < mapSize &&
@@ -94,7 +94,6 @@ class CrossX {
 
     //ходим компьютером рядом со своим предыдущим ходом 3х3
     int computer(){
-        boolean iDidIt = false; //мы походили!
         int x,y;
 
         //противостоим игроку
@@ -105,12 +104,11 @@ class CrossX {
         //если центральная клетка свободна - ходим для самого первого хода
         if (isCellValid(1,1)){
             map[1][1] = computer;
-            iDidIt = true;
             return 4;
         }
 
         //ищем свой предыдущий ход и ходим рядом
-        if (!iDidIt) {
+        {
             for (int i = 0; i < mapSize; i++) {
                 for (int j = 0; j < mapSize; j++) {
                     //если находим
@@ -124,7 +122,6 @@ class CrossX {
                                     //делаем пробный ход и проверяем, выиграем ли мы
                                     map[i + k][j + l] = computer; //-V6025
                                     if (checkWin(computer)) {
-                                        iDidIt = true;
                                         return ((i + k) * 3 + (j + l));
                                     } else {
                                         map[i + k][j + l] = empty; //-V6025
@@ -133,7 +130,6 @@ class CrossX {
                                     //проверяем, что мы так вообще построим линию
                                     if (isCellValid(i + 2 * k, j + 2 * l) || isCellValid(i - k, j - l)) {
                                         map[i + k][j + l] = computer; //-V6025
-                                        iDidIt = true;
                                         return ((i + k) * 3 + (j + l));
                                     }
                                 } //больше скобочек богу скобочек
@@ -145,21 +141,18 @@ class CrossX {
         }
 
         //если рядом с предыдущим ходом пойти не получилось - ходим случайно
-        while(!iDidIt) {
+        while(true) {
             x = (int) (Math.random() * 3);
             y = (int) (Math.random() * 3);
             if (isCellValid(x,y)) {
                 map[x][y] = computer;
-                iDidIt = true;
                 return (3*x + y);
             }
         }
-        return 0;
     }
 
     //противостоим игроку: присматриваем и делаем гадости 3х3
     private int opposition(char dot){
-        boolean found = false; //ход игрока найден
         int x,y,i,j;
 
         int hor = 0,
@@ -168,7 +161,7 @@ class CrossX {
                 diag2 = 0;
 
         //проверяем прямые
-        XY: {
+        {
             for (i = 0; i < mapSize; i++) {
                 for (j = 0; j < mapSize; j++) {
                     if (map[i][j] == dot) {
@@ -183,7 +176,6 @@ class CrossX {
                     for (y = 0; y < mapSize; y++) {
                         if (isCellValid(i, y)) {
                             map[i][y] = computer;
-                            found = true;
                             return (3*i + y);
                         }
                     }
@@ -193,7 +185,6 @@ class CrossX {
                     for (x = 0; x < mapSize; x++) {
                         if (isCellValid(x, i)) {
                             map[x][i] = computer;
-                            found = true;
                             return (3*x + i);
                         }
                     }
@@ -204,7 +195,7 @@ class CrossX {
         }
 
         //проверяем диагонали
-        DD: if (!found) {
+        {
             for (i = 0; i < mapSize; i++) {
                 if (map[i][i] == dot) {
                     diag1++;
@@ -218,7 +209,6 @@ class CrossX {
                 for (i = 0; i < mapSize; i++) {
                     if (isCellValid(i, i)) {
                         map[i][i] = computer;
-                        found = true;
                         return (3*i + i);
                     }
                 }
@@ -227,7 +217,6 @@ class CrossX {
                 for (i = 0; i < mapSize; i++) {
                     if (isCellValid(i, mapSize - i - 1)) {
                         map[i][mapSize - i - 1] = computer;
-                        found = true;
                         return (3*i + (mapSize - i - 1));
                     }
                 }
