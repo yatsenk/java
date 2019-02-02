@@ -13,13 +13,15 @@ public class GameField extends JFrame{
     private JButton[] jb = new JButton[9];
     private int ux,uy;
 
-    public GameField(CrossX cx) throws HeadlessException{
+    public GameField() throws HeadlessException{
         setTitle("CrossX");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(100,100,300,300);
-        setResizable(false);
+        //setResizable(false);
 
         setLayout(new GridLayout(3,3));
+
+        CrossX cx = new CrossX(); // обращаеся к алгоритму игры
 
         initButtons(cx);
 
@@ -37,37 +39,38 @@ public class GameField extends JFrame{
                     ux=b_i/3;
                     uy=b_i%3;
                     jb[b_i].setText("X");
-                    jb[b_i].removeActionListener(this); //и вот тут тоже гугл на полчаса, хотя это же очевидно
-                    playARound(cx);
+                    jb[b_i].removeActionListener(this); //и вот тут тоже Google на полчаса, хотя это же очевидно
+                    win(playARound(cx));
                     }
             });
         }
     }
 
     private void win(String s){
-        JFrame w = new JFrame();
-        w.setBounds(100,200,300,100);
-        w.setLayout(new GridLayout(1,1));
-        JButton close = new JButton(s + " выиграл!");
-        w.add(close);
-        w.setVisible(true);
-        close.addActionListener(e -> System.exit(0)); // в 10-30 утра я все еще не знаю, что такое лямюда, но обязательно узнаю!
-
+        if (s.length() > 0) {
+            JFrame w = new JFrame();
+            w.setBounds(100, 200, 300, 100);
+            w.setLayout(new GridLayout(1, 1));
+            JButton close = new JButton(s + " выиграл!");
+            w.add(close);
+            w.setVisible(true);
+            close.addActionListener(e -> System.exit(0)); // в 10-30 утра я все еще не знаю, что такое лямюда, но обязательно узнаю!
+        }
     }
 
-    private boolean playARound(CrossX cx){ // 9 утра, спагетти в силе, зачем я в этот класс все пишу?
+    private String playARound(CrossX cx){ // 9 утра, спагетти в силе, зачем я в этот класс все пишу?
         cx.player(ux,uy);
-        if (cx.checkWin(cx.player)) {win("Игрок");}
-        if (cx.isMapFull()) {win("Никто не"); return false;}
+        if (cx.checkWin(cx.player)) {return "Игрок";}
+        if (cx.isMapFull()) {return "Никто не";}
         o_button(cx.computer());
-        if (cx.checkWin(cx.computer)) {win("Компьютер");}
-        if (cx.isMapFull()) {win("Никто не");}
-        return false;
+        if (cx.checkWin(cx.computer)) {return "Компьютер";}
+        if (cx.isMapFull()) {return "Никто не";}
+        return "";
     }
 
     private void o_button(int xy){ //ход компа
         jb[xy].setText("O");
-        for (ActionListener listener : jb[xy].getActionListeners()) { // последствия гугла выше на полчаса (с)
+        for (ActionListener listener : jb[xy].getActionListeners()) { // последствия Google выше на полчаса (с)
             jb[xy].removeActionListener(listener);
         }
 

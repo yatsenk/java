@@ -100,7 +100,6 @@ class CrossX {
         int opp = opposition(player);
         if ( opp > -1) {return opp;}
 
-
         //если центральная клетка свободна - ходим для самого первого хода
         if (isCellValid(1,1)){
             map[1][1] = computer;
