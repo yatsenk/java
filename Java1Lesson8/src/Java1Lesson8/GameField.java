@@ -10,20 +10,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameField extends JFrame{
-    private JButton[] jb = new JButton[9];
+    private final JButton[] jb = new JButton[9];
     private int ux,uy;
+    private final int window_x = 500, window_y = 300;
 
     public GameField() throws HeadlessException{
         setTitle("CrossX");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setBounds(100,100,300,300);
+        setBounds(window_x,window_y,300,300);
         //setResizable(false);
 
         setLayout(new GridLayout(3,3));
-
         CrossX cx = new CrossX(); // обращаеся к алгоритму игры
-
-        initButtons(cx);
+        initButtons(cx); // задаем кнопки и их поведение
 
         setVisible(true);
     }
@@ -49,12 +48,18 @@ public class GameField extends JFrame{
     private void win(String s){
         if (s.length() > 0) {
             JFrame w = new JFrame();
-            w.setBounds(100, 200, 300, 100);
-            w.setLayout(new GridLayout(1, 1));
-            JButton close = new JButton(s + " выиграл!");
+            w.setBounds(window_x, window_y, 300, 100);
+            w.setLayout(new GridLayout(2, 1));
+
+            JButton close = new JButton(s + " выиграл! Выход.");
             w.add(close);
-            w.setVisible(true);
             close.addActionListener(e -> System.exit(0)); // в 10-30 утра я все еще не знаю, что такое лямюда, но обязательно узнаю!
+
+            JButton reload = new JButton( "Начать сначала.");
+            w.add(reload);
+            reload.addActionListener(e -> new GameField()); //теперь тут две лямбды
+
+            w.setVisible(true);
         }
     }
 
@@ -73,8 +78,6 @@ public class GameField extends JFrame{
         for (ActionListener listener : jb[xy].getActionListeners()) { // последствия Google выше на полчаса (с)
             jb[xy].removeActionListener(listener);
         }
-
     }
-
 }
 
