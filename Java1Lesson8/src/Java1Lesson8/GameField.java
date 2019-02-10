@@ -29,16 +29,16 @@ public class GameField extends JFrame{
 
     private void initButtons(CrossX cx){
         for (int i = 0; i < 9; i++) {
-            final int b_i = i; // потому что actionListener и Google на час в 7 утра
-            jb[b_i] = new JButton();
-            add(jb[b_i]);
-            jb[b_i].addActionListener(new ActionListener() {
+            final int final_i = i; // потому что actionListener и Google на час в 7 утра
+            jb[final_i] = new JButton();
+            add(jb[final_i]);
+            jb[final_i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    ux=b_i/3;
-                    uy=b_i%3;
-                    jb[b_i].setText("X");
-                    jb[b_i].removeActionListener(this); //и вот тут тоже Google на полчаса, хотя это же очевидно
+                    ux=final_i/3;
+                    uy=final_i%3;
+                    jb[final_i].setText("X");
+                    jb[final_i].removeActionListener(this); //и вот тут тоже Google на полчаса, хотя это же очевидно
                     win(playARound(cx));
                     }
             });
