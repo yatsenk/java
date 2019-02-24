@@ -8,15 +8,14 @@ public class ArraySort {
         return step+1;
     }
 
-    public boolean exchange(int[] m, int a, int b){
+    public void exchange(int[] m, int a, int b){
         int length = m.length;
         int tmp;
-        if (length < a || length < b) return false;
+        if (length < a || length < b) return;
         tmp = m[b];
         m[b] = m[a];
         m[a] = tmp;
         step++;
-        return true;
     }
 
     public void bubbleSort1(int[] m){
@@ -62,7 +61,7 @@ public class ArraySort {
         step = 0;
 
         int length = m.length;
-        int marker = 0;
+        int marker;
 
         for (int i = 0; i < length; i++) {
             marker = i;
@@ -173,7 +172,6 @@ public class ArraySort {
                     step++;
                 }
             }
-
         }
 
         long finish = System.currentTimeMillis();
@@ -208,5 +206,65 @@ public class ArraySort {
 
         long finish = System.currentTimeMillis();
         System.out.println("  11. CombSort2: " + (finish - start) + "ms");
+    }
+
+
+    public void qsort(int[] m){
+        long start = System.currentTimeMillis();
+        step = 0;
+
+        qsort1(m, 0, m.length-1);
+
+        long finish = System.currentTimeMillis();
+        System.out.println("  12. qSort: " + (finish - start) + "ms");
+    }
+    private void qsort1(int[] m, int low, int high){
+        if (low >= high) return; //глубина рекурсии закончилась
+
+        int base = m[low + (high-low)/2]; //тут можно оптимизацию
+        int l = low, h = high;
+        int tmp;
+
+        while (l <= h){
+            while (m[l] < base) l++; //сдвигаем указатели поближе
+            while (m[h] > base) h--;
+            if (l < h) { // если массив можно поделить по опорному элементу
+                tmp = m[l];
+                m[l] = m[h];
+                m[h] = tmp;
+                l++;
+                h--;
+                step++;
+            } else if (l == h){
+                l++;
+                h--;
+            }
+        }
+
+        //магия рекурсии
+        if (low<h) qsort1(m, low, h);
+        if (high>l) qsort1(m, l, high);
+    }
+
+    public void countingSort(int[] m){ //положительные целые числа > 0 размером не более length+const
+        long start = System.currentTimeMillis();
+        step = 0;
+
+        int length = m.length;
+        int[] k = new int [length + 10]; //временный массив
+        for (int i: m) {
+            k[i]++; //увеличиваем значения полей в списке частоты встречаемости
+        }
+
+        int count = 0;
+        for (int i = 0; i < k.length; i++) { //печатаем из списка частотвы
+            for (int j = k[i]; j > 0; j--) {
+                m[count] = i;
+                count++;
+            }
+        }
+
+        long finish = System.currentTimeMillis();
+        System.out.println("  13. CountingSort: " + (finish - start) + "ms");
     }
 }

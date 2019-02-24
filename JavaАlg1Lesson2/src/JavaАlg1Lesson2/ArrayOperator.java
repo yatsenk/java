@@ -5,7 +5,7 @@ public class ArrayOperator {
     public void generateRand(int[] m){
         int length = m.length;
         for (int i = 0; i < length; i++) {
-            m[i] = (int) (Math.random() * length);
+            m[i] = (int) (1 + Math.random() * length); // > 0 для countingSort
         }
     }
 
