@@ -267,4 +267,23 @@ public class ArraySort {
         long finish = System.currentTimeMillis();
         System.out.println("  13. CountingSort: " + (finish - start) + "ms");
     }
+
+
+
+    //пишем Bubble по памяти с целью поупражняться в оптимизациях
+    public void bubbleSort3(int [] m){
+        int length = m.length;
+        boolean doSort = true;
+
+        for (int i = 0; i < length; i++) {
+            if (!doSort) break;
+            doSort = false;
+            for (int j = length - 1 ; j > i ; j--) {
+                if (m[j-1] > m [j]) {
+                    exchange(m, j-1, j);
+                    doSort = true;
+                }
+            }
+        }
+    }
 }
