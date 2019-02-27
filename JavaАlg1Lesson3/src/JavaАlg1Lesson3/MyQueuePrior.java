@@ -18,7 +18,7 @@ public class MyQueuePrior extends MyQueueArr {
 
     public void addLinear(String s){ for (char c : s.toCharArray()) addLinear(c);}
 
-    public void addLinear(char ch){
+    public void addLinear(char ch){ //линейный поиск - скучно и работает со второго раза
         if (items == size){ expand((int)(size*1.5)); }
         int i;
         for (i = items - 1 ; i >=0; i--) {
@@ -34,19 +34,13 @@ public class MyQueuePrior extends MyQueueArr {
 
     public void addBinary(char ch){
         if (items == size){ expand((int)(size*1.5)); }
-        int i = binaryFind(queue,ch,items);
-        System.out.println(i);
-        print();
-        move(i);
+        int i = binaryFind(queue,ch,items); //ищем бинарным поиском
+        System.arraycopy(queue,i,queue,i+1,items - i); //копируем часть после i на +1
         queue[i] = ch;
         items++;
     }
 
-    public void move(int position) {
-        System.arraycopy(queue,position,queue,position+1,items - position);
-    }
-
-    public int binaryFind(char [] m, char value, int length){ //так как структура меньше массива хранения, нужен собственный поиск
+    public int binaryFind(char [] m, char value, int length){ //данные меньше массива хранения, нам нужен собственный поиск
         int low = 0;
         int high = length;
         int mid = 0;
@@ -58,11 +52,13 @@ public class MyQueuePrior extends MyQueueArr {
             } else if (m[mid] < value) {
                 low = mid + 1;
             } else {
-                return mid;
+                return mid; //если найдено
             }
         }
-        while (mid < length && m[mid] < value && m[mid]!= (char)0) mid++; //подпираем костылем
-        return mid; //минимальная позиция, перед которой вставлять
+        //подпираем костылем с контрольной проверкой на длину
+        //иначе можно увлечься и выйти за диапазон данных
+        while (m[mid] < value && m[mid]!= (char)0 && mid < length) mid++;
+        return mid; //если не найдено
     }
 
 }

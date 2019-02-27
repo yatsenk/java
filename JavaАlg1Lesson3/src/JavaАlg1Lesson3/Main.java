@@ -30,12 +30,12 @@ public class Main {
         testLinkedList();
 
 //        4. Приоритетная очередь
-        System.out.println("\nОчередь, расширяющая массив MyQueueArr");
+        System.out.println("\nПриоритетная очередь, расширяющая массив MyQueueArr");
         testMyQueuePrior();
 
 //        5. Переворот строк
-//        System.out.println("\nОтдельно выполняем задание 2 и переворачиваем строки.");
-//        reverse();
+        System.out.println("\nОтдельно выполняем задание 2 и переворачиваем строки.");
+        reverse();
     }
 
 
@@ -164,9 +164,10 @@ public class Main {
          * Производительность мы не выигрываем, все равно массив двигать.
          * Теперь мы знаем, почему здесь не используется бинарный поиск.
         */
-        p.addBinary("aabababbabzzzfqttr1"); // bacdfeik
+        p.addBinary("bacdfeik"); //на этом раньше падало
+        p.addBinary("aabababbabzzzfqttr1");
         p.addLinear("ddqstt;skfgpwvn;xkn");
-        p.print();
+        p.print(); //вообще это диагностическая печать, поэтому смотрится не очень
     }
 
 
