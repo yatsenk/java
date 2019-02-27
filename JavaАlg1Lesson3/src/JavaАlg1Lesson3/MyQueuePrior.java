@@ -61,6 +61,7 @@ public class MyQueuePrior extends MyQueueArr {
                 return mid;
             }
         }
+        while (mid < length && m[mid] < value && m[mid]!= (char)0) mid++; //подпираем костылем
         return mid; //минимальная позиция, перед которой вставлять
     }
 
