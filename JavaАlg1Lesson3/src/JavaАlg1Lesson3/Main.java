@@ -32,6 +32,8 @@ public class Main {
 //        4. Приоритетная очередь
         System.out.println("\nПриоритетная очередь, расширяющая массив MyQueueArr");
         testMyQueuePrior();
+        System.out.println("\nПриоритетная очередь, расширяющая массив MyDeque");
+        testMyDequePrior();
 
 //        5. Переворот строк
         System.out.println("\nОтдельно выполняем задание 2 и переворачиваем строки.");
@@ -170,6 +172,32 @@ public class Main {
         p.print(); //вообще это диагностическая печать, поэтому смотрится не очень
     }
 
+    static void testMyDequePrior() { //для разнообразия я сначала написал этот тест, а потом реализацию класса
+        MyDequePrior p = new MyDequePrior();
+
+        //пишем чего-нибудь в очередь
+        p.add(test);
+        p.add('|');
+        p.add("VeryVeryLong_and_stableString@WithW");
+
+        System.out.println("1. Очередь после записи: ");
+        System.out.println(p.toArray());
+
+        // удаляем чего-нибудь из дек
+        // так как getSize() вызывается каждый раз - то удаляем мы половину
+        System.out.print("2. Читаем и удаляем: ");
+        for (int i = 0; i < p.getSize(); i++) { System.out.print(p.remove()); }
+
+        System.out.println();
+        System.out.println("3. Очередь после удаления: ");
+        System.out.println(p.toArray());
+
+        // издеваемся над производительностью вместо p.getSize()
+        // заодно проверяем корректность работы ссылок
+        while (p.toArray().length() > 0){ p.remove(); }
+        System.out.println("4. Проверяем, что все удалили и ничего не упало. Массив содержит "
+                + p.toArray() + " размера " + p.getSize());
+    }
 
     static void reverse() throws IOException {
         InputStreamReader isr = new InputStreamReader(System.in);

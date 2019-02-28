@@ -4,9 +4,9 @@ package JavaАlg1Lesson3;
  * Делаем вид, что мы тут пишем на C++ с ручным управлением ссылками, только деструктора не хватает
  */
 public class MyDeque{
-    private int size = 0;
-    private Deque pFirst;
-    private Deque pLast;
+    int size = 0;
+    Deque pFirst;
+    Deque pLast;
 
     public int getSize() {
         return size;
