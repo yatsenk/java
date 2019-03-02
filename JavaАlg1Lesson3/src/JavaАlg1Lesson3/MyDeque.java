@@ -23,9 +23,8 @@ public class MyDeque{
     public void addFirst(char ch){
         if (size == 0) { pFirst = pLast = new Deque(null,null,ch); }
         else {
-            Deque tmpO = new Deque(null, pFirst, ch);
-            pFirst.first = tmpO;
-            pFirst = tmpO;
+            pFirst = new Deque(null, pFirst, ch);
+            pFirst.last.first = pFirst;
         }
         size++;
     }
@@ -33,9 +32,8 @@ public class MyDeque{
     public void addLast(char ch){
         if (size == 0) { pFirst = pLast = new Deque(null,null,ch); } //без этого будет падать, потому что ссылки
         else {
-            Deque tmpO = new Deque(pLast, null, ch);
-            pLast.last = tmpO;
-            pLast = tmpO;
+            pLast = new Deque(pLast, null, ch);
+            pLast.first.last = pLast;
         }
         size++;
     }
