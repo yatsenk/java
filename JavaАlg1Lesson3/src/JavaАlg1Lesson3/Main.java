@@ -172,7 +172,7 @@ public class Main {
         p.print(); //вообще это диагностическая печать, поэтому смотрится не очень
     }
 
-    static void testMyDequePrior() { //для разнообразия я сначала написал этот тест, а потом реализацию класса
+    static void testMyDequePrior() { // для разнообразия я сначала оформил этот тест, а потом написал реализацию класса
         MyDequePrior p = new MyDequePrior();
 
         //пишем чего-нибудь в очередь
@@ -183,7 +183,7 @@ public class Main {
         System.out.println("1. Очередь после записи: ");
         System.out.println(p.toArray());
 
-        // удаляем чего-нибудь из дек
+        // удаляем чего-нибудь из очереди
         // так как getSize() вызывается каждый раз - то удаляем мы половину
         System.out.print("2. Читаем и удаляем: ");
         for (int i = 0; i < p.getSize(); i++) { System.out.print(p.remove()); }
@@ -192,7 +192,7 @@ public class Main {
         System.out.println("3. Очередь после удаления: ");
         System.out.println(p.toArray());
 
-        // издеваемся над производительностью вместо p.getSize()
+        // издеваемся над производительностью вместо getSize()
         // заодно проверяем корректность работы ссылок
         while (p.toArray().length() > 0){ p.remove(); }
         System.out.println("4. Проверяем, что все удалили и ничего не упало. Массив содержит "

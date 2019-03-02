@@ -4,7 +4,7 @@ package JavaАlg1Lesson3;
  * Никто не знает, зачем делать приоритетную очередь
  * на основе MyDeque, а не MyStack. Впрочем, добавлять
  * лишние ссылки на предыдущий элемент - интересно (и падуче).
- * Теперь больше C++ в нашем курсе Java!
+ * Теперь еще больше C++ в нашем курсе Java!
  */
 public class MyDequePrior extends MyDeque {
 
@@ -17,28 +17,53 @@ public class MyDequePrior extends MyDeque {
         if (pLast == null) { //если элементов нет
             pFirst = pLast = new Deque(null,null,ch);
         } else{
-            Deque pCheck = pLast; //создаем временный указатель
-            while (pCheck.ch > ch && pCheck.first != null) { pCheck = pCheck.first; } //ищем элемент меньше
+            Deque pCheck = pLast; // создаем временный указатель на место вставки
+            while (pCheck.ch > ch && pCheck.first != null) { pCheck = pCheck.first; } // ставим указатель на элемент меньше
 
-            //сначала граничные случаи
-            if (pCheck.first == null && pCheck.ch > ch){        // если вставляем перед первым элементом
-                pFirst = new Deque(null, pCheck,ch);
-                pCheck.first = pFirst;
-            } else if (pCheck.last == null){                    // иначе если вставляем после первого или другого элемента
-                pLast = new Deque(pCheck,null,ch);
-                pCheck.last = pLast;
-            } else {                                            //иначе общий случай
-                // Все просто:
-                // 1. pCheck.last - элемент, который мы только что вставили
-                // 2. pCheck.last.last - элемент после только что вставленного элемента
-                // 3. pCheck.last.last.first - очевидно, 2. должен ссылаться на элемент перед 2. - а это 1.
-                pCheck.last = new Deque(pCheck, pCheck.last,ch);
-                pCheck.last.last.first = pCheck.last;
+            /**
+             *  addFirst, addLast - из суперкласса, заодно поправил в super логику управления ссылками
+             *  addMiddle - метод текущего класса, для уникального случая вставки посередине
+             *  В итоге итерации к четвертой и третьему утру остался простой и аккуратный код класса
+             *  из двух методов, который я и учусь писать с первого раза.
+             */
+            if (pCheck.first == null && pCheck.ch > ch){        // если вставляем _перед_ первым элементом
+                addFirst(ch);
+            } else if (pCheck.last == null){                    // иначе если вставляем после последнего (или единственного) элемента
+                addLast(ch);
+            } else {                                            // иначе общий случай с двумя соседями
+                addMiddle(pCheck, ch);
             }
+        }
+    }
 
-//            Предыдущая реализация логики вставки, переусложнена (очевидно, раз 1 и 4 совпадают).
-//            Не уверен, что работает быстрее, хотя в этом и был смысл такой реализации.
-//            Оставлю тут в учебных целях "как бывает сложно аж до javadoc."
+    /**
+     * Все просто:
+     * 1. pInsertAfter.last - элемент, который мы только что вставили
+     * 2. pInsertAfter.last.last - элемент после только что вставленного элемента
+     * 3. pInsertAfter.last.last.first - очевидно, 2. должен ссылаться на элемент перед 2. - а это 1.
+     */
+    void addMiddle(Deque pInsertAfter,char ch){
+        pInsertAfter.last = new Deque(pInsertAfter, pInsertAfter.last,ch);
+        pInsertAfter.last.last.first = pInsertAfter.last;
+        size++;
+    }
+
+    /**
+     * Сейчас это приоритетная очередь по бОльшему элементу,
+     * если читать с начала - то по меньшему.
+     */
+    public char remove(){
+        return removeLast();
+    }
+}
+
+
+/**
+ * Предыдущая реализация логики вставки метода add, переусложнена (очевидно, раз 1 и 4 совпадают).
+ * Не уверен, что работает быстрее, хотя в этом и был смысл такой реализации.
+ * Оставлю тут в учебных целях "как бывает сложно аж до javadoc" и
+ * как не надо повторно изобретать велосипед по ночам.
+ */
 //            /**
 //             * Пояснения к вставке второго и далее элементов
 //             * 1. Если вставляем в середине очереди после pCheck, где существуют соседи - все просто.
@@ -64,28 +89,3 @@ public class MyDequePrior extends MyDeque {
 //                pCheck.last = new Deque(pCheck, pCheck.last, ch);
 //                pCheck.last.last.first = pCheck.last;
 //            }
-        }
-        size++;
-    }
-
-    // сейчас это приоритетная очередь по бОльшему элементу
-    // а если читать с начала - то по меньшему
-    // не зря же у нас тут Deque
-    public char remove(){
-        return removeLast();
-    }
-
-    // убираем все методы добавления, потому что
-    // они делают приоритет бессмысленным
-    @Deprecated
-    public void addFirst(String s){}
-
-    @Deprecated
-    public void addFirst(char ch){}
-
-    @Deprecated
-    public void addLast(String s){}
-
-    @Deprecated
-    public void addLast(char ch){}
-}
