@@ -3,7 +3,7 @@ package JavaАlg1Lesson3;
 /**
  * Делаем вид, что мы тут пишем на C++ с ручным управлением ссылками, только деструктора не хватает
  */
-public class MyDeque{
+public class MyDeque {
     int size = 0;
     Deque pFirst;
     Deque pLast;
@@ -12,25 +12,32 @@ public class MyDeque{
         return size;
     }
 
-    public void add(char ch){
+    public void add(char ch) {
         addLast(ch);
     }
 
-    public void addFirst(String s){ for (char c : s.toCharArray()) addFirst(c); } //перегрузим для строк
+    public void addFirst(String s) {
+        for (char c : s.toCharArray()) addFirst(c);
+    } //перегрузим для строк
 
-    public void addLast(String s){ for (char c : s.toCharArray()) addLast(c); } //перегрузим для строк
+    public void addLast(String s) {
+        for (char c : s.toCharArray()) addLast(c);
+    } //перегрузим для строк
 
-    public void addFirst(char ch){
-        if (size == 0) { pFirst = pLast = new Deque(null,null,ch); }
-        else {
+    public void addFirst(char ch) {
+        if (size == 0) {
+            pFirst = pLast = new Deque(null, null, ch);
+        } else {
             pFirst = new Deque(null, pFirst, ch);
             pFirst.last.first = pFirst;
         }
         size++;
     }
 
-    public void addLast(char ch){
-        if (size == 0) { pFirst = pLast = new Deque(null,null,ch); } //без этого будет падать, потому что ссылки
+    public void addLast(char ch) {
+        if (size == 0) {
+            pFirst = pLast = new Deque(null, null, ch);
+        } //без этого будет падать, потому что ссылки
         else {
             pLast = new Deque(pLast, null, ch);
             pLast.first.last = pLast;
@@ -38,7 +45,7 @@ public class MyDeque{
         size++;
     }
 
-    public char removeFirst(){
+    public char removeFirst() {
         char tmpCh = pFirst.ch; //сначала читаем char, пока объект еще досутпен
         if (size == 1) { //если объекты закончились, то записывать ссылки в поля - уже некуда
             pFirst = pLast = null;
@@ -50,7 +57,7 @@ public class MyDeque{
         return tmpCh;
     }
 
-    public char removeLast(){
+    public char removeLast() {
         char tmpCh = pLast.ch;
         if (size == 1) {
             pLast = pFirst = null;
@@ -62,7 +69,7 @@ public class MyDeque{
         return tmpCh;
     }
 
-    public StringBuilder toArray(){
+    public StringBuilder toArray() {
         StringBuilder out = new StringBuilder();
         Deque pointer = pFirst;
         for (int i = 0; i < size; i++) {
@@ -77,7 +84,7 @@ public class MyDeque{
      * first по убыванию к 0 элементу
      * last по возрастанию
      */
-    class Deque{
+    class Deque {
         Deque first;
         Deque last;
         char ch;
