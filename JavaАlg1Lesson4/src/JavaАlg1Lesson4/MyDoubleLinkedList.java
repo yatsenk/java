@@ -115,7 +115,7 @@ public class MyDoubleLinkedList<T> implements ILinkedList<T>, IDoubleLinkedList<
         Link tmp = first;
         while (tmp != null){
             System.out.println(tmp.getData());
-            sb.append(tmp.getData().toString() + " ");
+            sb.append(tmp.getData().toString()).append(" ");
             tmp = tmp.getNext();
         }
         return sb.toString();

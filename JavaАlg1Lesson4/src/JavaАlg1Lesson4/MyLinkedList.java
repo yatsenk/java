@@ -42,11 +42,11 @@ public class MyLinkedList<T> implements ILinkedList<T>{
         Link tmp = first;
         while (tmp != null){
             System.out.println(tmp.getData());
-            sb.append(tmp.getData().toString() + " ");
+            sb.append(tmp.getData().toString());
+            sb.append(" ");
             tmp = tmp.getNext();
         }
-        String s = sb.toString();
-        return s;
+        return sb.toString();
     }
 
     // Почему эта штука в методичеке выглядит как бессмысленная?

@@ -26,13 +26,12 @@ public class MyLinkedListTest {
 
     @Test
     public void delete() {
-        String s = "abbab";
+        String s = "test data";
         MyLinkedList<String> myLinkedList = new MyLinkedList<>();
 
         myLinkedList.insertFirst(s);
-        String expected = s;
         String actual = myLinkedList.delete();
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals(s,actual);
     }
 
     @Test
@@ -54,14 +53,13 @@ public class MyLinkedListTest {
         myLinkedList.insertFirst(s1);
         myLinkedList.insertFirst(s2);
 
-        Integer expected = s2;
         Integer actual = myLinkedList.find(5);
 
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals(s2,actual);
     }
 
     @Test
-    public void findNdelete() {
+    public void findNDelete() {
         Integer s0 = 3445;
         Integer s1 = 5533;
         Integer s2 = 666;
