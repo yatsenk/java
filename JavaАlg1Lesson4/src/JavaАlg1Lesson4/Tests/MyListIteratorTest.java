@@ -1,7 +1,6 @@
 package JavaАlg1Lesson4.Tests;
 
 import JavaАlg1Lesson4.MyLinkedList;
-import com.sun.istack.internal.NotNull;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -91,7 +90,7 @@ public class MyListIteratorTest extends MyLinkedList{
     @Test
     public void insertAfter() {
         list.insertFirst(123);
-        i.insertAfter(456);
+        i.insertAfter(456); // я еще не в курсе как проблему RAW DATA обходить
         Assert.assertEquals(456,i.getData());
         i.nextLink();
         Assert.assertNotEquals(123,i.getData());

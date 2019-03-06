@@ -13,8 +13,7 @@ public class Main {
         myQueueTest();
         System.out.println("5. Тестируем итератор: ");
         // тесты лежат Tests/MyListIteratorTest и я не знаю,
-        // как их сюда прикрутить и надо ли это делать
-
+        // как их сюда прикрутить и надо ли это вообще делать
     }
 
     public static void L1LocalTest() {
@@ -31,8 +30,8 @@ public class Main {
         MyDoubleLinkedList<String> my = new MyDoubleLinkedList<>();
         my.insertFirst("444");
         my.insertFirst("hello");
-        my.insertFirst("smth");
-        my.insertLast("lastdata");
+        my.insertFirst("something");
+        my.insertLast("last data");
         my.display();
         System.out.println("  Ищем h: " + my.find("h"));
 
