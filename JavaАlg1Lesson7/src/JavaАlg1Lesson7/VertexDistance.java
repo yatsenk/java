@@ -141,11 +141,10 @@ public class VertexDistance {
      */
     private int target; // целевая вершина
     private LinkedList<Integer> visited; // лист посещенных вершин
-    private Integer [] out; // результирующий массив
+    private Integer[] out; // результирующий массив
     private int way; // длина пути
 
     public int dfs(char c1, char c2){
-        resetWasVisited(); // никто не знает зачем
         int v1 = getVertexID(c1); // мы находимся здесь
         target = getVertexID(c2); // попасть надо сюда
         visited = new LinkedList<>();
@@ -158,20 +157,16 @@ public class VertexDistance {
 
     // рекурсивный обход
     private void dfs_step(int v1, int distance){
-        visited.addLast(v1); // сюда мы пришли
+        visited.addLast(v1); // мы пришли
 
         // заканчиваем обход в эту сторону, если дошли
-        if (v1 == target) {
+        if (v1 == target)
             dfs_end(distance);
-            return;
-        }
-
         // если еще ходим
-        for (int i = 0; i < vertexCount; i++) {
+        else for (int i = 0; i < vertexCount; i++)
             if (adjMatrix[v1][i] != 0 && !visited.contains(i)) dfs_step(i, distance + adjMatrix[v1][i]);
-        }
 
-        visited.removeLast(); // отсюда мы ушли, теперь следующие маршруты могут включать этот узел
+        visited.removeLast(); // мы ушли, теперь следующие маршруты могут включать этот узел
     }
 
     // рекурсивный обход: пришли к цели
@@ -180,7 +175,6 @@ public class VertexDistance {
             way = distance;
             out = visited.toArray(new Integer[0]);
         }
-        visited.removeLast();
     }
 
     // печать узлов из массива обхода
@@ -188,10 +182,8 @@ public class VertexDistance {
         if (out == null) System.out.print("Маршрут отсутствует.");
         else for (int i:out)
             System.out.print(" -> " + vertexList[i].label);
-
         System.out.println();
     }
-
 
     /**
      * Задача коммивояжера: побывать везде по одному разу, и желательно побыстрее
@@ -200,7 +192,6 @@ public class VertexDistance {
 
     public int commy(char c1){
         //устанавливаем переменные, разработанные для dfs
-        resetWasVisited(); // никто не знает зачем
         visited = new LinkedList<>(); // список посещенных узлов, который должен был быть пустым к этому моменту
         way = -1; // пройденный путь
         out = null; // маршрут пути
@@ -212,21 +203,21 @@ public class VertexDistance {
     }
 
     private void commy_step(int v1, int distance, int step){
-        visited.addLast(v1);
+        visited.addLast(v1); // добавляем вершину в список на правах стека
 
         // если мы все обошли в эту сторону и вершины закончились
-        if (step == vertexCount - 1){
+        if (step == vertexCount - 1)
             dfs_end(distance); // тоже у dfs позаимствовали
-            return;
-        }
-
         // самый интересный цикл
-        for (int i = 0; i < vertexCount; i++) {
+        else for (int i = 0; i < vertexCount; i++)
             if (adjMatrix[v1][i] != 0 && !visited.contains(i)) commy_step(i, distance + adjMatrix[v1][i],step+1);
-        }
 
         visited.removeLast();
     }
+
+    /**
+     * Обход коммивояжера с различными начальными точками
+     */
 
     public void commy_everywhere(){
         for (int i = 0; i < vertexCount; i++) {
