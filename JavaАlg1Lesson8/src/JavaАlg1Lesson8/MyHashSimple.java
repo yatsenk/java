@@ -14,7 +14,7 @@ public class MyHashSimple {
     public MyHashSimple(int hashArraySize) {
 
         this.hashArraySize = // потому что именно столько символов юникода, а нулевой массив нам не нужен
-                hashArraySize > 65535 ? 65535 : hashArraySize > 0 ? hashArraySize : 66;
+                hashArraySize > 65535 ? 65535 : hashArraySize < 1 ? hashArraySize : 66;
         keyArray = new LinkedList[this.hashArraySize]; // как мы помним, так массивы делать нельзя
         for (int i = 0; i < this.hashArraySize; i++) { // сразу инициализируем списки, чтобы не проверять при вставке
             keyArray[i] = new LinkedList<>();
