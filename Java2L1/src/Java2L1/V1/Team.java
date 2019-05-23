@@ -1,4 +1,4 @@
-package Java2L1;
+package Java2L1.V1;
 
 import java.util.List;
 import java.util.LinkedList;

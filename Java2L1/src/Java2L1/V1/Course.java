@@ -1,4 +1,4 @@
-package Java2L1;
+package Java2L1.V1;
 
 public class Course {
     double [] snags; // массив препятствий по условию задачи
