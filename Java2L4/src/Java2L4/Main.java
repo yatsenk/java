@@ -97,9 +97,9 @@ class Chat extends JFrame{
             if (name.equals(emptyName)){
                 name = message;
                 info.setText(name);
-                history.setText(history.getText() + name + " вошел в чат." + "\n");
+                history.append(name + " вошел в чат." + "\n");
             } else {
-                history.setText(history.getText() + name + ": " + message + "\n");
+                history.append(name + ": " + message + "\n");
             }
         inputField.setText("");
         inputField.grabFocus();
